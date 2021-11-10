@@ -9,18 +9,14 @@ const serieSchema = new Schema({
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    required: true,
-  },
   seen: {
     type: Boolean,
     default: false,
-    required: true,
   },
   platform: {
     type: Types.ObjectId,
     ref: "Platform",
+    required: true,
   },
 });
 
