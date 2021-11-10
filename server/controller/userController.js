@@ -5,8 +5,10 @@ const User = require("../../database/models/user");
 const loginUser = async (req, res, next) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
+  console.log("user: ", user);
 
   const rightPassword = await bcrypt.compare(password, user.password);
+  console.log("rightPassword: ", rightPassword);
 
   if (!rightPassword) {
     const error = new Error("Password incorrect!");

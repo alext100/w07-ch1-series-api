@@ -1,4 +1,5 @@
 const express = require("express");
+const createSerie = require("../controller/serieController");
 // const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -9,7 +10,7 @@ const router = express.Router();
 
 // router.get("/pending", getPendingSeries);
 
-router.post("/");
+router.post("/", createSerie);
 
 router.delete("/:idSerie");
 
