@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -17,3 +16,5 @@ router.delete("/:idSerie");
 router.put("/:idSerie");
 
 router.patch("/view/:idSerie");
+
+module.exports = router;
