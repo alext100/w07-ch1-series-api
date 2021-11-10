@@ -5,24 +5,23 @@ const User = require("../../database/models/user");
 const loginUser = async (req, res, next) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
-  console.log("user: ", user);
-
-  const rightPassword = await bcrypt.compare(password, user.password);
-  console.log("rightPassword: ", rightPassword);
-
-  if (!rightPassword) {
-    const error = new Error("Password incorrect!");
+  if (!user) {
+    const error = new Error("Wrong credentials");
     error.code = 401;
     next(error);
   } else {
-    const token = jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-      },
-      process.env.JWT_SECRET
-    );
-    res.json({ token });
+    const rightPassword = await bcrypt.compare(password, user.password);
+    if (!rightPassword) {
+      const error = new Error("Wrong credentials");
+      error.code = 401;
+      next(error);
+    } else {
+      const token = jwt.sign(
+        { username, id: user.id },
+        process.env.SECRET_HASH
+      );
+      res.json({ token });
+    }
   }
 };
 
