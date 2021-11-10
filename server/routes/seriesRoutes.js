@@ -1,13 +1,13 @@
 const express = require("express");
-const auth = require("../middlewares/auth");
+// const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", getSeries);
+// router.get("/", getSeries);
 
-router.get("/viewed", getViewedSeries);
+// router.get("/viewed", getViewedSeries);
 
-router.get("/pending", getPendingSeries);
+// router.get("/pending", getPendingSeries);
 
 router.post("/");
 

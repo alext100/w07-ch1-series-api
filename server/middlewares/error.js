@@ -1,6 +1,6 @@
 const { ValidationError } = require("express-validation");
 
-const debug = require("debug")("robots:errors");
+const debug = require("debug")("series:errors");
 
 const notFoundErrorHandler = (req, res) => {
   res.status(404).json({ error: "Endpoint not found" });

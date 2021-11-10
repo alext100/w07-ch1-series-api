@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const cors = require("cors");
-const debug = require("debug")("robots:server");
+const debug = require("debug")("series:server");
 const express = require("express");
 const morgan = require("morgan");
 const {

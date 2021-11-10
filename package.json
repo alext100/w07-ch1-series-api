@@ -1,7 +1,6 @@
 {
   "name": "challenge-1-series-api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,5 +28,14 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alext100/w07-ch1-series-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alext100/w07-ch1-series-api/issues"
+  },
+  "homepage": "https://github.com/alext100/w07-ch1-series-api#readme",
+  "description": ""
 }
