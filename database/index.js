@@ -9,6 +9,8 @@ const initializeMongo = (connectionString) =>
       transform: (doc, ret) => {
         // eslint-disable-next-line no-underscore-dangle
         delete ret._id;
+        // eslint-disable-next-line no-underscore-dangle
+        delete ret.__v;
       },
     });
     mongoose.set("debug", true);
