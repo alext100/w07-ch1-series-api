@@ -1,4 +1,5 @@
 const Serie = require("../../database/models/serie");
+const User = require("../../database/models/user");
 
 const createSerie = async (req, res, next) => {
   try {
@@ -25,9 +26,9 @@ const updateSerie = async (req, res, next) => {
       error.code = 404;
       next(error);
     }
-  } catch {
-    const error = new Error("Wrong id format");
+  } catch (error) {
     error.code = 400;
+    error.message = "Wrong id format";
     next(error);
   }
 };
@@ -44,5 +45,28 @@ const deleteSerie = async (req, res, next) => {
   }
 };
 
-module.exports = { createSerie, updateSerie, deleteSerie };
-    
+const getSeries = async (req, res) => {
+  const user = await User.findOne({ username: req.body.username }).populate(
+    "serie"
+  );
+  res.json(user.serie);
+};
+
+const getViewedSeries = async (req, res, next) => {
+  try {
+    const viewedSeries = await Serie.find({ seen: true });
+    res.json(viewedSeries);
+  } catch (error) {
+    error.code = 400;
+    error.message = "Viewed series not found";
+    next(error);
+  }
+};
+
+module.exports = {
+  createSerie,
+  updateSerie,
+  deleteSerie,
+  getSeries,
+  getViewedSeries,
+};
