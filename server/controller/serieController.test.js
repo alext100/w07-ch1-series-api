@@ -1,5 +1,11 @@
 const Serie = require("../../database/models/serie");
-const { createSerie, updateSerie, deleteSerie  } = require("./serieController");
+const User = require("../../database/models/user");
+const {
+  createSerie,
+  updateSerie,
+  deleteSerie,
+  getSeries,
+} = require("./serieController");
 
 describe("Given a createSerie function", () => {
   describe("When it receives a serie", () => {
@@ -99,6 +105,9 @@ describe("Given an updateSerie function", () => {
         expectedError.message
       );
       expect(next.mock.calls[0][0]).toHaveProperty("code", expectedError.code);
+    });
+  });
+});
 
 describe("Given a deleteSerie function", () => {
   describe("When it receives a request with an id of a serie", () => {
@@ -136,6 +145,44 @@ describe("Given a deleteSerie function", () => {
       await deleteSerie(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a getSeries function", () => {
+  describe("When it receives an object user in request", () => {
+    test("Then it should invoke the method json with user.serie", async () => {
+      const serie = [
+        {
+          name: "Allí abajo",
+          img: "url.jpg",
+          seen: false,
+          platform: "618c2bdc9a1dff86b9be0156",
+        },
+        {
+          name: "JoT",
+          img: "url.png",
+          seen: false,
+          platform: "618c2bdc9a1dff86b9be0156",
+        },
+      ];
+      const user = {
+        username: "Joan",
+      };
+      User.findOne = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue(serie),
+      });
+      const req = {
+        body: { user },
+      };
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getSeries(req, res);
+
+      expect(User.findOne).toHaveBeenCalled();
+      expect(res.json).toHaveBeenCalledWith(user.serie);
     });
   });
 });

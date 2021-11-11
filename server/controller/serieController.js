@@ -26,9 +26,9 @@ const updateSerie = async (req, res, next) => {
       error.code = 404;
       next(error);
     }
-  } catch {
-    const error = new Error("Wrong id format");
+  } catch (error) {
     error.code = 400;
+    error.message = "Wrong id format";
     next(error);
   }
 };
