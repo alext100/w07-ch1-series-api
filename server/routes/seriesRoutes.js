@@ -1,5 +1,5 @@
 const express = require("express");
-const createSerie = require("../controller/serieController");
+const { createSerie, updateSerie } = require("../controller/serieController");
 // const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -14,7 +14,7 @@ router.post("/", createSerie);
 
 router.delete("/:idSerie");
 
-router.put("/:idSerie");
+router.put("/:idSerie", updateSerie);
 
 router.patch("/view/:idSerie");
 
