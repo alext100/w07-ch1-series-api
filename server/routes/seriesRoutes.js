@@ -1,11 +1,16 @@
 const express = require("express");
-const { createSerie, updateSerie, deleteSerie } = require("../controller/serieController");
+const {
+  createSerie,
+  updateSerie,
+  deleteSerie,
+  getSeries,
+} = require("../controller/serieController");
 
 // const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-// router.get("/", getSeries);
+router.get("/", getSeries);
 
 // router.get("/viewed", getViewedSeries);
 
