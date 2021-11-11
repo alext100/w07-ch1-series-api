@@ -28,7 +28,7 @@ describe("Given a createPlatform function", () => {
   });
 
   describe("And Platform.create rejects", () => {
-    test("Then it should invoke next function with error rejected", async () => {
+    test("Then it should invoke next function with error rejected with error.code 400", async () => {
       const error = {};
       Platform.create = jest.fn().mockRejectedValue(error);
       const req = {
@@ -45,6 +45,7 @@ describe("Given a createPlatform function", () => {
       await createPlatform(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
+      expect(error.code).toBe(400);
     });
   });
 });
