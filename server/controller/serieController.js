@@ -1,4 +1,5 @@
 const Serie = require("../../database/models/serie");
+const User = require("../../database/models/user");
 
 const createSerie = async (req, res, next) => {
   try {
@@ -44,5 +45,11 @@ const deleteSerie = async (req, res, next) => {
   }
 };
 
-module.exports = { createSerie, updateSerie, deleteSerie };
-    
+const getSeries = async (req, res) => {
+  const user = await User.findOne({ username: req.body.username }).populate(
+    "serie"
+  );
+  res.json(user.serie);
+};
+
+module.exports = { createSerie, updateSerie, deleteSerie, getSeries };
