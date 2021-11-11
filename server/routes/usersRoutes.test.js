@@ -58,3 +58,22 @@ describe("Given a /login endpoint", () => {
     });
   });
 });
+
+describe("Given a /register endpoint", () => {
+  describe("When a POST request arrives with bad parameters", () => {
+    test("Then it should respond with a 400 error", async () => {
+      await request.post("/users/register").send({}).expect(400);
+    });
+  });
+  describe("When a POST request arrives with the right parameters", () => {
+    test("Then it should respond with a 200", async () => {
+      const user = {
+        name: "manolo",
+        username: "manolo",
+        password: await bcrypt.hash("hola123", 10),
+        admin: "false",
+      };
+      await request.post("/users/register").send(user).expect(200);
+    });
+  });
+});
