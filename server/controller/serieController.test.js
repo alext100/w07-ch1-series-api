@@ -108,6 +108,24 @@ describe("Given an updateSerie function", () => {
       expect(next.mock.calls[0][0]).toHaveProperty("code", expectedError.code);
     });
   });
+
+  describe("When the Serie.findByIdAndUpdate rejects", () => {
+    test("Then it should invoke a next function with the error rejected", async () => {
+      const error = {};
+      Serie.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+      const req = {
+        body: {
+          id: "6222d83be45c3a8801f1440d",
+        },
+      };
+      const res = {};
+      const next = jest.fn();
+
+      await updateSerie(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
 });
 
 describe("Given a deleteSerie function", () => {
