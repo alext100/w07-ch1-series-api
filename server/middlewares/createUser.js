@@ -11,7 +11,6 @@ const createUser = async (req, res, next) => {
       admin,
     });
     res.json(user);
-    console.log(user);
   } catch (error) {
     next(error);
   }
