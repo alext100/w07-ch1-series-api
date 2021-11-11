@@ -1,8 +1,42 @@
 const Platform = require("../../database/models/platform");
-const createPlatform = require("./platformController");
+const { createPlatform, getPlatform } = require("./platformController");
 
 jest.mock("../../database/models/platform");
 
+describe("Given a getPlatform function", () => {
+  describe("When it receives an array of platforms", () => {
+    test("Then it should invoke the method json with the platforms", async () => {
+      const platforms = [
+        {
+          name: "Netflix",
+          img: "netflix.jpg",
+        },
+        {
+          name: "HBO",
+          img: "hbo.jpg",
+        },
+      ];
+      Platform.find = jest.fn().mockResolvedValue(platforms);
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getPlatform(null, res);
+
+      expect(res.json).toHaveBeenCalledWith(platforms);
+    });
+  });
+  describe("When the promise is rejected", () => {
+    test("Then it should invoke next function with the error", async () => {
+      Platform.find = jest.fn().mockRejectedValue();
+      const next = jest.fn();
+
+      await getPlatform(null, null, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+  });
+});
 describe("Given a createPlatform function", () => {
   describe("When it receives a platform", () => {
     test("Then it should invoke res.json() with the platform", async () => {

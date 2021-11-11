@@ -11,7 +11,7 @@ const initializeMongo = (connectionString) =>
         delete ret._id;
       },
     });
-    /* mongoose.set("debug", true); */
+    mongoose.set("debug", true);
     mongoose.connect(connectionString, (error) => {
       if (error) {
         debug(chalk.red("Failed connection with the database"));

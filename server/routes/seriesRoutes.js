@@ -1,5 +1,6 @@
 const express = require("express");
-const { createSerie, updateSerie } = require("../controller/serieController");
+const { createSerie, updateSerie, deleteSerie } = require("../controller/serieController");
+
 // const auth = require("../middlewares/auth");
 
 const router = express.Router();
@@ -12,7 +13,7 @@ const router = express.Router();
 
 router.post("/", createSerie);
 
-router.delete("/:idSerie");
+router.delete("/:idSerie", deleteSerie);
 
 router.put("/:idSerie", updateSerie);
 

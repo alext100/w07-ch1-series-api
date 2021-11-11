@@ -1,5 +1,14 @@
 const Platform = require("../../database/models/platform");
 
+const getPlatform = async (req, res, next) => {
+  try {
+    const platform = await Platform.find();
+    res.json(platform);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createPlatform = async (req, res, next) => {
   try {
     const platform = req.body;
@@ -12,4 +21,4 @@ const createPlatform = async (req, res, next) => {
   }
 };
 
-module.exports = createPlatform;
+module.exports = { createPlatform, getPlatform };

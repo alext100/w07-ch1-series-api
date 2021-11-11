@@ -32,4 +32,17 @@ const updateSerie = async (req, res, next) => {
   }
 };
 
-module.exports = { createSerie, updateSerie };
+const deleteSerie = async (req, res, next) => {
+  const { idSerie } = req.params;
+  try {
+    const serieToDelete = await Serie.findByIdAndDelete(idSerie);
+    res.json(serieToDelete);
+  } catch (error) {
+    error.code = 500;
+    error.message = "Error on delete serie!";
+    next(error);
+  }
+};
+
+module.exports = { createSerie, updateSerie, deleteSerie };
+    
