@@ -11,7 +11,9 @@ const createUser = async (req, res, next) => {
       admin,
     });
     res.json(user);
-  } catch (error) {
+  } catch {
+    const error = new Error("Bad credentials provided");
+    error.code = 400;
     next(error);
   }
 };
