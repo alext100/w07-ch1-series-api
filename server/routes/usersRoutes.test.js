@@ -11,7 +11,6 @@ const User = require("../../database/models/user");
 const request = supertest(app);
 
 let server;
-let token;
 
 beforeAll(async () => {
   await initializeMongo(process.env.MONGODB_STRING_TEST);
