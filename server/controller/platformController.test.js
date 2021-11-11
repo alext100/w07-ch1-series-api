@@ -148,3 +148,9 @@ describe("Given a deletePlatform function", () => {
     });
   });
 });
+
+describe("Given a updatePlatform function", () => {
+  describe("When it receives a request ", () => {
+    test("Then it should invoke the method json", () => {});
+  });
+});

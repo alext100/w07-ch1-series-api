@@ -1,5 +1,5 @@
 const Serie = require("../../database/models/serie");
-const { createSerie, updateSerie, deleteSerie  } = require("./serieController");
+const { createSerie, updateSerie, deleteSerie } = require("./serieController");
 
 describe("Given a createSerie function", () => {
   describe("When it receives a serie", () => {
@@ -99,7 +99,9 @@ describe("Given an updateSerie function", () => {
         expectedError.message
       );
       expect(next.mock.calls[0][0]).toHaveProperty("code", expectedError.code);
-
+    });
+  });
+});
 describe("Given a deleteSerie function", () => {
   describe("When it receives a request with an id of a serie", () => {
     test("Then it should invoke Serie.findByIdAndDelete with that id", async () => {
