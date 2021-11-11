@@ -52,4 +52,21 @@ const getSeries = async (req, res) => {
   res.json(user.serie);
 };
 
-module.exports = { createSerie, updateSerie, deleteSerie, getSeries };
+const getViewedSeries = async (req, res, next) => {
+  try {
+    const viewedSeries = await Serie.find({ seen: true });
+    res.json(viewedSeries);
+  } catch (error) {
+    error.code = 400;
+    error.message = "Viewed series not found";
+    next(error);
+  }
+};
+
+module.exports = {
+  createSerie,
+  updateSerie,
+  deleteSerie,
+  getSeries,
+  getViewedSeries,
+};
