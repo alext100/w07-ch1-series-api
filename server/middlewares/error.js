@@ -12,7 +12,7 @@ const generalErrorHandler = (error, req, res, next) => {
   if (error instanceof ValidationError) {
     return res.status(error.statusCode).json(error);
   }
-  const message = error.code ? error.message : "General error";
+  const message = error.code ? error.message : "General pete";
   res.status(error.code || 500).json({ error: message });
 };
 
