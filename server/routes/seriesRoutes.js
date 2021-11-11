@@ -4,6 +4,7 @@ const {
   updateSerie,
   deleteSerie,
   getSeries,
+  getViewedSeries,
 } = require("../controller/serieController");
 
 // const auth = require("../middlewares/auth");
@@ -12,7 +13,7 @@ const router = express.Router();
 
 router.get("/", getSeries);
 
-// router.get("/viewed", getViewedSeries);
+router.get("/viewed", getViewedSeries);
 
 // router.get("/pending", getPendingSeries);
 
