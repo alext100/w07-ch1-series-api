@@ -37,4 +37,27 @@ const deletePlatform = async (req, res, next) => {
   }
 };
 
-module.exports = { createPlatform, getPlatform, deletePlatform };
+const updatePlatform = async (req, res, next) => {
+  const { id } = req.body;
+  try {
+    const platform = await Platform.findByIdAndUpdate(id, req.body, {
+      runValidators: true,
+    });
+    if (platform) {
+      res.json(req.body);
+    } else {
+      const error = new Error("Platform not found");
+      error.code = 404;
+      next(error);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createPlatform,
+  getPlatform,
+  deletePlatform,
+  updatePlatform,
+};
