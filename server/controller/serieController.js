@@ -14,7 +14,6 @@ const createSerie = async (req, res, next) => {
 
 const deleteSerie = async (req, res, next) => {
   const { idSerie } = req.params;
-  console.log("serieId: ", idSerie);
   try {
     const serieToDelete = await Serie.findByIdAndDelete(idSerie);
     res.json(serieToDelete);

@@ -1,5 +1,5 @@
 const Serie = require("../../database/models/serie");
-const createSerie = require("./serieController");
+const { createSerie, deleteSerie } = require("./serieController");
 
 jest.mock("../../database/models/serie");
 
@@ -50,6 +50,46 @@ describe("Given a createSerie function", () => {
 
       expect(next).toHaveBeenCalledWith(error);
       expect(error.code).toBe(400);
+    });
+  });
+});
+
+describe("Given a deleteSerie function", () => {
+  describe("When it receives a request with an id of a serie", () => {
+    test("Then it should invoke Serie.findByIdAndDelete with that id", async () => {
+      Serie.findByIdAndDelete = jest.fn().mockResolvedValue({});
+      const idSerie = "618c2bdc9a1dff86b9be0156";
+      const req = {
+        params: {
+          idSerie,
+        },
+      };
+      const res = {
+        json: () => {},
+      };
+      const next = () => {};
+
+      await deleteSerie(req, res, next);
+
+      expect(Serie.findByIdAndDelete).toHaveBeenCalledWith(idSerie);
+    });
+  });
+
+  describe("And Serie.findByIdAndDelete rejects", () => {
+    test("Then it should invoke a next function with the error rejected", async () => {
+      const error = {};
+      Serie.findByIdAndDelete = jest.fn().mockRejectedValue(error);
+      const req = {
+        params: {
+          idSerie: 0,
+        },
+      };
+      const res = {};
+      const next = jest.fn();
+
+      await deleteSerie(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
