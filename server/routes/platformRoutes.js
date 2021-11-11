@@ -1,11 +1,18 @@
 const express = require("express");
-const createPlatform = require("../controller/platformController");
+const { validate } = require("express-validation");
+const {
+  platformRequestSchema,
+} = require("../../database/requestSchemas/platformRequestSchema");
+const {
+  createPlatform,
+  getPlatform,
+} = require("../controller/platformController");
 
 const router = express.Router();
 
-router.get("/");
+router.get("/", getPlatform);
 
-router.post("/", createPlatform);
+router.post("/", validate(platformRequestSchema), createPlatform);
 
 router.delete("/:idPlatform");
 
