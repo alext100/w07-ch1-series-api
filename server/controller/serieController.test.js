@@ -5,6 +5,7 @@ const {
   updateSerie,
   deleteSerie,
   getSeries,
+  getViewedSeries,
 } = require("./serieController");
 
 describe("Given a createSerie function", () => {
@@ -183,6 +184,46 @@ describe("Given a getSeries function", () => {
 
       expect(User.findOne).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith(user.serie);
+    });
+  });
+});
+
+describe("Given a getViewedSeries function", () => {
+  describe("When it receives viewedSeries from Serie.find", () => {
+    test("Then it should invoke res.json with viewedSeries", async () => {
+      const viewevSeries = {
+        name: "Allí abajo",
+        img: "url.jpg",
+        seen: true,
+        platform: "618c2bdc9a1dff86b9be0156",
+        id: "618d459eb93d5b6d7cfc9fd8",
+      };
+      Serie.find = jest.fn().mockResolvedValue(viewevSeries);
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getViewedSeries(null, res, null);
+
+      expect(res.json).toHaveBeenCalledWith(viewevSeries);
+    });
+  });
+
+  describe("When the Serie.find rejects", () => {
+    test("Then it should invoke a next function with the error rejected", async () => {
+      const error = {};
+      Serie.find = jest.fn().mockRejectedValue(error);
+      const req = {
+        params: {
+          seen: true,
+        },
+      };
+      const res = {};
+      const next = jest.fn();
+
+      await getViewedSeries(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
