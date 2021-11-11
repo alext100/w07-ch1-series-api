@@ -21,4 +21,20 @@ const createPlatform = async (req, res, next) => {
   }
 };
 
-module.exports = { createPlatform, getPlatform };
+const deletePlatform = async (req, res, next) => {
+  const { idPlatform } = req.params;
+  try {
+    const platform = await Platform.findByIdAndDelete(idPlatform);
+    if (platform) {
+      res.json({ id: idPlatform });
+    } else {
+      const error = new Error("Platform not found");
+      error.code = 404;
+      next(error);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createPlatform, getPlatform, deletePlatform };
